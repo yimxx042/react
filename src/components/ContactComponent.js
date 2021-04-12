@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, 
     Button, Label, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, Form, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
 const required = val => val && val.length;
@@ -89,9 +90,8 @@ class Contact extends Component {
     // }
 
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
         this.props.resetFeedbackForm();
+        this.props.postFeedback(values);
     }
 
     render() {
@@ -111,27 +111,34 @@ class Contact extends Component {
                     </div>
                 </div>
 
-                <div className="row row-content align-items-center">
-                    <div className="col-sm-4">
-                        <h5>Our Address</h5>
-                        <address>
-                            1 Nucamp Way<br />
-                            Seattle, WA 98001<br />
-                            U.S.A.
-                        </address>
+                <Stagger in>
+                    <div className="row row-content align-items-center">                 
+                        <div className="col-sm-4">
+                        <Fade in>
+                            <h5>Our Address</h5>
+                                <address>
+                                    1 Nucamp Way<br />
+                                    Seattle, WA 98001<br />
+                                    U.S.A.
+                                </address>
+                        </Fade>    
+                            </div>
+                        <div className="col">
+                        <Fade in>
+                            <a role="button" className="btn btn-link" href="tel:+12065551234"><i className="fa fa-phone" /> 1-206-555-1234</a><br />
+                            <a role="button" className="btn btn-link" href="mailto:fakeemail@fakeemail.co"><i className="fa fa-envelope-o" /> campsites@nucamp.co</a>
+                        </Fade>
+                        </div>                       
                     </div>
-                    <div className="col">
-                        <a role="button" className="btn btn-link" href="tel:+12065551234"><i className="fa fa-phone" /> 1-206-555-1234</a><br />
-                        <a role="button" className="btn btn-link" href="mailto:fakeemail@fakeemail.co"><i className="fa fa-envelope-o" /> campsites@nucamp.co</a>
-                    </div>
-                </div>
+                </Stagger>
+                
                 <div className="row row-content">
                     <div className="col-12">
                         <h2>Send us your Feedback</h2>
                         <hr />
                     </div>
                     <div className="col-md-10">
-                    <Form model="feedbackForm" onSubmit={values => this.handleSubmit(values)}>
+                    <Form model="feedbackForm" onSubmit={values => this.handleSubmit(values)}>    
                             <Row className="form-group">
                                 <Label htmlFor="firstName" md={2}>First Name</Label>
                                 <Col md={10}>
@@ -270,6 +277,7 @@ class Contact extends Component {
                                 </Col>
                             </Row>
                         </Form>
+                  
                     </div>
                 </div>
             </div>
