@@ -15,7 +15,6 @@ const minLength = len => val => val && (val.length >= len);
 
 
 class CommentForm extends Component {
-    // <CommentForm campsiteId={campsiteId} addComment={addComment} />
 
     constructor(props) {
         super(props);
@@ -188,29 +187,29 @@ function RenderComments({comments, postComment, campsiteId}) {
             );
         }
         if (props.campsite) {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to="/directory">Directory</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>{props.campsite.name}</BreadcrumbItem>
-                        </Breadcrumb>
-                        <h2>{props.campsite.name}</h2>
-                        <hr />
+            return (
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <Breadcrumb>
+                                <BreadcrumbItem><Link to="/directory">Directory</Link></BreadcrumbItem>
+                                <BreadcrumbItem active>{props.campsite.name}</BreadcrumbItem>
+                            </Breadcrumb>
+                            <h2>{props.campsite.name}</h2>
+                            <hr />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <RenderCampsite campsite={props.campsite} />
+                        <RenderComments
+                            comments={props.comments}
+                            postComment={props.postComment}
+                            campsiteId={props.campsite.id}
+                        />  
                     </div>
                 </div>
-                <div className="row">
-                    <RenderCampsite campsite={props.campsite} />
-                    <RenderComments
-                        comments={props.comments}
-                        postComment={props.postComment}
-                        campsiteId={props.campsite.id}
-                    />  
-                </div>
-            </div>
-        );
-        }
+                );
+            }
     return <div />;
 }
     
